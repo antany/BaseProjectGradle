@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'application'
+	id 'eclipse'
+}
+
+mainClassName = 'ca.antany.project.Project'
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}
+
+repositories {
+    jcenter()
+}
+
+repositories {
+    jcenter()
+}
+
+task copyLib(type: Copy){
+	into "build/libs/lib" from configurations.compile.collect {it}
+}
+
+
+
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+        attributes 'Class-Path': configurations.compile.collect { 'lib/'+it.getName() }.join(' ');
+    }
+    /*into('lib'){
+	    from {
+	        configurations.compile.collect { it }
+	    }
+    }*/
+}
+
+jar.dependsOn(copyLib)
+
+sourceSets{
+	main{
+		resources{
+			srcDirs  "src/main/resources"
+		}
+	}
+}
