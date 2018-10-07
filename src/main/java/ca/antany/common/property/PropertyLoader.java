@@ -23,7 +23,6 @@ public class PropertyLoader extends Properties {
 	}
 
 	public void addPropertyFile(String resourcePath, PropertyType propertyType) {
-		Properties props = new Properties();
 		switch (propertyType) {
 		case CLASSPATH:
 			genenratePropertyFromClassPath(resourcePath);
